@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp6
+{
+    public partial class FormListView : Form
+    {
+        public FormListView()
+        {
+            InitializeComponent();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormListView_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        List<NhanVien> danhSachNhanVien = new List<NhanVien>();
+        private void CapNhatDataGridView()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = danhSachNhanVien;
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            FormNhanVien form = new FormNhanVien();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                NhanVien nv = new NhanVien
+                {
+                    MSNV = form.MSNV,
+                    TenNV = form.TenNV,
+                    LuongCB = form.LuongCB
+                };
+                danhSachNhanVien.Add(nv);
+                CapNhatDataGridView();
+            }    
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int index = dataGridView1.SelectedRows[0].Index;
+                NhanVien nhanVien = danhSachNhanVien[index];
+
+                FormNhanVien form = new FormNhanVien
+                {
+                    MSNV = nhanVien.MSNV,
+                    TenNV = nhanVien.TenNV,
+                    LuongCB = nhanVien.LuongCB
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    nhanVien.TenNV = form.TenNV;
+                    nhanVien.LuongCB = form.LuongCB;
+                    CapNhatDataGridView();
+                }    
+            }    
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int index = dataGridView1.SelectedRows[0].Index;
+                danhSachNhanVien.RemoveAt(index);
+                CapNhatDataGridView();
+            }    
+        }
+    }
+}
