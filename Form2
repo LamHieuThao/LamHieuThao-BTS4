@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp6
+{
+    public partial class FormNhanVien : Form
+    {
+        public FormNhanVien()
+        {
+            InitializeComponent();
+        }
+
+       
+        public string MSNV { get => txtMSNV.Text; set => txtMSNV.Text = value; }
+        public string TenNV { get => txtTenNV.Text; set => txtTenNV.Text = value; }
+        public decimal LuongCB
+        {
+            get => decimal.Parse(txtLuongCB.Text);
+            set => txtLuongCB.Text = value.ToString();
+        }
+
+        private void btnDongY_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMSNV.Text) || string.IsNullOrEmpty(txtTenNV.Text) || string.IsNullOrEmpty(txtLuongCB.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnBoQua_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+    }
+}
